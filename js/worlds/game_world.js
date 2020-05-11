@@ -14,8 +14,8 @@ class game_world extends world {
 		var s3 = new spawner(640 / 2, 480 / 2);
 		this.add(p);
 		this.add(e);
-		this.add(s);
-		this.add(s2);
-		this.add(s3);
+		//this.add(s);
+		//this.add(s2);
+		//this.add(s3);
 	}
 }
