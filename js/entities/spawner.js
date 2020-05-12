@@ -21,7 +21,12 @@ class spawner extends yentity {
 		var currentE = w.currentEnemies;
 		if (t.spawnTimer.finished() && currentE <= maxE) {
 			w.currentEnemies++;
-			w.add(new enemy(t.x, t.y));
+			var randEnemyType = this.rand(9) + 1;
+			var enemyType = '';
+			if (randEnemyType <= 5) {
+				enemyType = 'home';
+			} else enemyType = 'wander';
+			w.spawnEnemy(this, enemyType);
 		}
 	}
 } //end class

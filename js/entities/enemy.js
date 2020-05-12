@@ -6,6 +6,7 @@ class enemy extends yentity {
 		this.type = 'enemy';
 		this.grafic_type = 'none';
 		this.move_type = 'home';
+		this.canShoot;
 		this.rx;
 		this.ry;
 		this.wanderTimer = new ytimer(40);
@@ -63,7 +64,7 @@ class enemy extends yentity {
 			t.world.remove(this);
 			p.sx(t.world.wh.w / 2);
 			p.sy(t.world.wh.h / 2);
-			p.start_invinsable=true;
+			p.start_invinsable = true;
 		}
 	}
 } //end class

@@ -8,6 +8,10 @@ class game_world extends world {
 	}
 
 	init() {
+		var t = this;
+		t.lives = 3;
+		t.entitys = [];
+		t.currentEnemies = 0;
 		var p = new player(640 / 2, 200);
 		var e = new enemy(640 / 2, 50);
 		var s = new spawner(15, 480 / 2);
@@ -20,11 +24,23 @@ class game_world extends world {
 		this.add(s2);
 		this.add(s3);
 	}
-	
-	render()
-	{
+
+	update() {
+		super.update();
+		var t = this;
+		if (t.lives <= 0) {
+			t.change_world('game_over', true);
+		}
+	}
+	spawnEnemy(spawner2, type2) {
+		var t = this;
+		var e = new enemy(spawner2.x, spawner2.y);
+		e.move_type = type2;
+		t.add(e);
+	}
+	render() {
 		super.render();
-		var t =this;
-		t.ytext(50,30,"lives"+t.lives );
-	}//end render
+		var t = this;
+		t.ytext(50, 30, 'lives: ' + t.lives);
+	} //end render
 }
