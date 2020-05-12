@@ -57,10 +57,13 @@ class enemy extends yentity {
 	hit_player() {
 		var t = this;
 		const p = t.hit_test('player');
-		if (p) {
+		//if hit player and player is not invinsable
+		if (p && !p.is_invinsable) {
+			t.world.lives--;
 			t.world.remove(this);
 			p.sx(t.world.wh.w / 2);
 			p.sy(t.world.wh.h / 2);
+			p.start_invinsable=true;
 		}
 	}
 } //end class

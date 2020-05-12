@@ -119,4 +119,10 @@ class world {
 			e.sprite.visible = true;
 		}
 	} //end change_world
-} //end yentity
+	ytext(x,y,s)
+	{
+		fill(255);
+		textAlign(CENTER);
+		text(s, x,y);
+	}
+} //end world

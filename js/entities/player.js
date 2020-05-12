@@ -6,6 +6,9 @@ class player extends yentity {
 		this.type = 'player';
 		this.grafic_type = 'none';
 		this.shoot_timer = new ytimer(15);
+		this.invinsable_timer = new ytimer(50);
+		this.start_invinsable;
+		this.is_invinsable;
 		this.dir = "up";
 		this.shot_dir = "up";
 		this.lock_shot_dir;
@@ -18,7 +21,22 @@ class player extends yentity {
 		t.move();
 		t.shot();
 		t.boundaries();
+		t.invinsable_do();
 	} //end update
+	
+	render()
+	{
+		super.render();
+		var t = this;
+		
+		if(t.is_invinsable)
+		{
+		  //draw ellipse
+		  fill(204, 101, 192, 127);
+		  stroke(127, 63, 120);
+		  ellipse(t.x,t.y, 40, 40);
+		}
+	}//end render
 	move() {
 		var t = this;
 		if (keyDown('W')) {
@@ -49,6 +67,29 @@ class player extends yentity {
 			t.world.add(new bullet(t.x,t.y,t.shot_dir))
 		}
 	}//enf shot
+	
+	invinsable_do() 
+	{	
+		var t = this;
+		//if started invisabilety
+		if(t.start_invinsable)
+		{
+			t.log("in")
+			//player is invinsable
+			t.is_invinsable = true;
+			//if timer is done
+			if(t.invinsable_timer.finished())
+			{
+				//player is not invinsable
+				t.is_invinsable = false;
+				//end invinsabilety
+				t.start_invinsable = false;
+				//reset timer
+				t.invinsable_timer = new ytimer(50);
+			}
+		}
+	}//end ivinsable_do
+	
 	boundaries() {
 		var t = this;
 		var worldh = t.world.wh.h;
