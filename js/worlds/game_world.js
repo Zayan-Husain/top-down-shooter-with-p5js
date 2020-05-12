@@ -4,6 +4,7 @@ class game_world extends world {
 		this.wh = wh2;
 		this.maxEnemies = 10;
 		this.currentEnemies = 0;
+		this.lives = 3;
 	}
 
 	init() {
@@ -11,7 +12,7 @@ class game_world extends world {
 		var e = new enemy(640 / 2, 50);
 		var s = new spawner(15, 480 / 2);
 		var s2 = new spawner(620, 480 / 2);
-		var s3 = new spawner(640 / 2, 480 / 2);
+		var s3 = new spawner(640 / 2, 480);
 		e.move_type = 'wander';
 		this.add(p);
 		this.add(e);
@@ -19,4 +20,11 @@ class game_world extends world {
 		this.add(s2);
 		this.add(s3);
 	}
+	
+	render()
+	{
+		super.render();
+		var t =this;
+		t.ytext(50,30,"lives"+t.lives );
+	}//end render
 }

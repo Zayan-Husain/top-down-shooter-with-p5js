@@ -289,5 +289,7 @@ console.log(t.sprite.animation)
 		
 		return Math.sqrt(dx * dx + dy * dy);
 	}//distanse
+	
+	log(s){console.log(s);}
   
 }//end yentity
