@@ -5,6 +5,9 @@ class game_world extends world {
 		this.maxEnemies = 10;
 		this.currentEnemies = 0;
 		this.lives = 3;
+		this.levels = [ [ 'wander' ], [ 'wander', 'home' ], [ 'wander', 'home', 'shooter' ] ];
+		this.currentLevel = 0;
+		this.killCount = 0;
 	}
 
 	init() {
@@ -17,12 +20,12 @@ class game_world extends world {
 		var s = new spawner(15, 480 / 2);
 		var s2 = new spawner(620, 480 / 2);
 		var s3 = new spawner(640 / 2, 480);
-		e.move_type = 'wander';
+		e.move_type = 'shooter';
 		this.add(p);
 		this.add(e);
-		this.add(s);
-		this.add(s2);
-		this.add(s3);
+		// this.add(s);
+		// this.add(s2);
+		// this.add(s3);
 	}
 
 	update() {
@@ -31,6 +34,7 @@ class game_world extends world {
 		if (t.lives <= 0) {
 			t.change_world('game_over', true);
 		}
+		t.nextLevel();
 	}
 	spawnEnemy(spawner2, type2) {
 		var t = this;
@@ -42,5 +46,13 @@ class game_world extends world {
 		super.render();
 		var t = this;
 		t.ytext(50, 30, 'lives: ' + t.lives);
+		t.ytext(50, 60, 'Level: ' + (t.currentLevel + 1));
 	} //end render
+	nextLevel() {
+		if (this.killCount >= this.maxEnemies) {
+			this.currentEnemies = 0;
+			this.currentLevel++;
+			this.killCount = 0;
+		}
+	} // end next level
 }

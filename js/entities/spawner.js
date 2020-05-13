@@ -17,15 +17,18 @@ class spawner extends yentity {
 	spawn() {
 		var t = this;
 		var w = t.world;
+		var CL = w.currentLevel;
+		if (CL > w.levels.length - 1) {
+			w.currentLevel = 0;
+		}
+		var levelR = w.levels[CL];
 		var maxE = w.maxEnemies;
 		var currentE = w.currentEnemies;
 		if (t.spawnTimer.finished() && currentE <= maxE) {
 			w.currentEnemies++;
-			var randEnemyType = this.rand(9) + 1;
-			var enemyType = '';
-			if (randEnemyType <= 5) {
-				enemyType = 'home';
-			} else enemyType = 'wander';
+			var randEnemyType = Math.floor(this.rand(levelR.length)) - 1;
+			var enemyType = levelR[randEnemyType];
+			console.log(enemyType + ', ' + randEnemyType);
 			w.spawnEnemy(this, enemyType);
 		}
 	}

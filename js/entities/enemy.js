@@ -7,14 +7,22 @@ class enemy extends yentity {
 		this.grafic_type = 'none';
 		this.move_type = 'home';
 		this.canShoot;
+		this.shootTimer = new ytimer(20);
 		this.rx;
 		this.ry;
 		this.wanderTimer = new ytimer(40);
 	} //end constructor
 	init() {
 		super.init();
+		console.log('init is being called');
+		console.log(this.move_type);
 		this.rx = this.rand(this.world.wh.w);
 		this.ry = this.rand(this.world.wh.h);
+		if (this.move_type == 'shooter') {
+			this.canShoot = true;
+			console.log(this.canShoot);
+			// console.log('in init');
+		}
 	}
 	update() {
 		var t = this;
@@ -22,6 +30,7 @@ class enemy extends yentity {
 		t.collide('enemy', 0, 0);
 		t.move2();
 		t.hit_player();
+		t.shoot();
 	} //end update
 	move() {
 		var t = this;
@@ -46,7 +55,7 @@ class enemy extends yentity {
 		if (t.move_type == 'home') {
 			t.move_to(player);
 		}
-		if (t.move_type == 'wander') {
+		if (t.move_type == 'wander' || t.move_type == 'shooter') {
 			if (t.wanderTimer.finished()) {
 				this.rx = t.rand(t.world.wh.w);
 				this.ry = t.rand(t.world.wh.h);
@@ -66,6 +75,20 @@ class enemy extends yentity {
 			p.sy(t.world.wh.h / 2);
 			p.start_invinsable = true;
 		}
+	}
+	shoot() {
+		var t = this;
+		if (t.canShoot && t.shootTimer.finished()) {
+			var p = t.get_by_type('player')[0];
+			var a = t.angle_betweenr(p.x, p.y);
+			var b = new bullet(t.x, t.y + 40);
+			b.movement_type = 'angle';
+			b.a = -a;
+			b.team = 'enemy';
+			t.world.add(b);
+			console.log('shooting');
+		}
+		// console.log(`${t.canShoot}, ${t.shootTimer.finished()}`);
 	}
 } //end class
 ///////////////end enemy///////////////////
