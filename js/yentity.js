@@ -219,7 +219,10 @@ class yentity {
 		return -Math.atan2(this.x - x2, this.y - y2);
 	} //end angle_between
 	angle_betweenr(x2, y2) {
-		return -Math.atan2(this.x - x2, this.y - y2) * 180 / Math.PI;
+		
+		var a =  -Math.atan2(this.x - x2, this.y - y2) * 180 / Math.PI;
+		//if(a<360){a+=360;}
+		return a;
 	} //end angle_betweenr
 
 	move_to(target) {

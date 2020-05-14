@@ -14,13 +14,11 @@ class enemy extends yentity {
 	} //end constructor
 	init() {
 		super.init();
-		console.log('init is being called');
-		console.log(this.move_type);
+
 		this.rx = this.rand(this.world.wh.w);
 		this.ry = this.rand(this.world.wh.h);
 		if (this.move_type == 'shooter') {
 			this.canShoot = true;
-			console.log(this.canShoot);
 			// console.log('in init');
 		}
 	}
@@ -80,13 +78,21 @@ class enemy extends yentity {
 		var t = this;
 		if (t.canShoot && t.shootTimer.finished()) {
 			var p = t.get_by_type('player')[0];
-			var a = t.angle_betweenr(p.x, p.y);
-			var b = new bullet(t.x, t.y + 40);
+			
+			var b = new bullet(t.x, t.y);
 			b.movement_type = 'angle';
-			b.a = -a;
+			
+			//calculate angle between enemy and player
+			var dx = (t.x - p.x);
+			var dy = (t.y - p.y);
+			var a = Math.atan2(dy, dx);//radians
+			//set bullet angle
+			b.a = a;
+			
 			b.team = 'enemy';
 			t.world.add(b);
-			console.log('shooting');
+			
+			
 		}
 		// console.log(`${t.canShoot}, ${t.shootTimer.finished()}`);
 	}

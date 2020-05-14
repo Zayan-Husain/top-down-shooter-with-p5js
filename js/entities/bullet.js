@@ -2,12 +2,11 @@
 class bullet extends yentity {
 	constructor(x2, y2, dir2, g) {
 		super(x2, y2, g);
-		this.speed = 4;
+		this.speed = 15;
 		this.type = 'bullet';
 		this.grafic_type = 'none';
 		this.dir = dir2;
 		this.team = 'player';
-		this.speed = 15;
 		this.movement_type = 'normal';
 		this.a;
 	} //end constructor
@@ -22,6 +21,7 @@ class bullet extends yentity {
 	move() {
 		var t = this;
 		if (t.movement_type == 'normal') {
+			//t.log("in dir move")
 			if (t.dir == 'up') {
 				t.move_by(0, -t.speed);
 			}
@@ -36,9 +36,11 @@ class bullet extends yentity {
 			}
 		}
 		if (t.movement_type == 'angle') {
+		
+			//move by angle
 			var dx = Math.cos(t.a);
 			var dy = Math.sin(t.a);
-			t.move_by(t.speed * dx, t.speed * dy);
+			t.move_by(-t.speed * dx, -t.speed * dy);
 		}
 		//outside of screen
 		if (t.x < 0 || t.x > t.world.wh.w || t.y < 0 || t.y > t.world.wh.h) {
