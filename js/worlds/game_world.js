@@ -6,7 +6,7 @@ class game_world extends world {
 		this.currentEnemies = 0;
 		this.lives = 3;
 		this.levels = [ [ 'wander' ], [ 'wander', 'home' ], [ 'wander', 'home', 'shooter' ] ];
-		this.currentLevel = 0;
+		this.currentLevel = 1;
 		this.killCount = 0;
 	}
 
@@ -20,12 +20,14 @@ class game_world extends world {
 		var s = new spawner(15, 480 / 2);
 		var s2 = new spawner(620, 480 / 2);
 		var s3 = new spawner(640 / 2, 480);
+		var b = new Boss(99, 75);
 		e.move_type = 'shooter';
 		this.add(p);
+		this.add(b);
 		this.add(e);
-		// this.add(s);
-		// this.add(s2);
-		// this.add(s3);
+		this.add(s);
+		this.add(s2);
+		this.add(s3);
 	}
 
 	update() {

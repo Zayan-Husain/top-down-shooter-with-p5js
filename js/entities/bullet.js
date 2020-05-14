@@ -9,6 +9,8 @@ class bullet extends yentity {
 		this.team = 'player';
 		this.movement_type = 'normal';
 		this.a;
+		this.set_wh(6, 6);
+		this.sethb_wh(6, 6);
 	} //end constructor
 
 	update() {
@@ -17,6 +19,15 @@ class bullet extends yentity {
 		t.move();
 		t.hit();
 	} //end update
+
+	render() {
+		super.render();
+		var t = this;
+		this.sprite.draw = function() {
+			fill(color(255, 255, 255));
+			ellipse(0, 0, t.w, t.h);
+		}; //end draw
+	}
 
 	move() {
 		var t = this;
@@ -36,7 +47,6 @@ class bullet extends yentity {
 			}
 		}
 		if (t.movement_type == 'angle') {
-		
 			//move by angle
 			var dx = Math.cos(t.a);
 			var dy = Math.sin(t.a);
@@ -51,11 +61,16 @@ class bullet extends yentity {
 	hit() {
 		var t = this;
 		var e = t.hit_test('enemy');
+		var b = t.hit_test('boss');
 		if (e && t.team == 'player') {
 			//console.log(e);
 			t.world.remove(e);
 			t.world.remove(this);
 			t.world.killCount++;
+		}
+		if (b && t.team == 'player') {
+			b.takeDamage(1);
+			t.world.remove(this);
 		}
 	}
 } //end class
