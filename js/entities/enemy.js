@@ -7,7 +7,8 @@ class enemy extends yentity {
 		this.grafic_type = 'none';
 		this.move_type = 'home';
 		this.canShoot;
-		this.shootTimer = new ytimer(20);
+		this.shootTimer = new ytimer(70);
+		this.bullet_speed = 5;
 		this.rx;
 		this.ry;
 		this.wanderTimer = new ytimer(40);
@@ -67,11 +68,13 @@ class enemy extends yentity {
 		const p = t.hit_test('player');
 		//if hit player and player is not invinsable
 		if (p && !p.is_invinsable) {
-			t.world.lives--;
-			t.world.remove(this);
+			/*t.world.lives--;
+		//	t.world.remove(this);
 			p.sx(t.world.wh.w / 2);
 			p.sy(t.world.wh.h / 2);
 			p.start_invinsable = true;
+			*/
+			p.loss_life();
 		}
 	}
 	shoot() {
@@ -88,7 +91,7 @@ class enemy extends yentity {
 			var a = Math.atan2(dy, dx);//radians
 			//set bullet angle
 			b.a = a;
-			
+			b.speed = t.bullet_speed;
 			b.team = 'enemy';
 			t.world.add(b);
 			

@@ -28,7 +28,7 @@ class spawner extends yentity {
 			w.currentEnemies++;
 			var randEnemyType = Math.floor(this.rand(levelR.length)) - 1;
 			var enemyType = levelR[randEnemyType];
-			console.log(enemyType + ', ' + randEnemyType);
+			//console.log(enemyType + ', ' + randEnemyType);
 			w.spawnEnemy(this, enemyType);
 		}
 	}

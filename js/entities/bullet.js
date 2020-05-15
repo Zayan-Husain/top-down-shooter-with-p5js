@@ -62,6 +62,7 @@ class bullet extends yentity {
 		var t = this;
 		var e = t.hit_test('enemy');
 		var b = t.hit_test('boss');
+		var p = t.hit_test('player');
 		if (e && t.team == 'player') {
 			//console.log(e);
 			t.world.remove(e);
@@ -71,6 +72,10 @@ class bullet extends yentity {
 		if (b && t.team == 'player') {
 			b.takeDamage(1);
 			t.world.remove(this);
+		}
+		if (p && t.team == 'enemy') {
+			t.world.remove(this);
+			p.loss_life();
 		}
 	}
 } //end class

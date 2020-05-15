@@ -103,5 +103,13 @@ class player extends yentity {
 			t.sx(worldw - 10);
 		}
 	}
+	loss_life()
+	{
+		var t = this;
+		t.world.lives--;
+		t.sx(t.world.wh.w / 2);
+		t.sy(t.world.wh.h / 2);
+		t.start_invinsable = true;
+	}//end loss_life
 } //end class
 ///////////////end player///////////////////
